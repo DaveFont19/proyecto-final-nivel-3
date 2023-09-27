@@ -1,0 +1,11 @@
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    z-index: 1;
+    top: 2rem;
+}
+#icon{
+    color: #c2c5cd;
+}
