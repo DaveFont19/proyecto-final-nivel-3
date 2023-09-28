@@ -60,7 +60,12 @@
                 <h1 class="p-4">Home</h1>
             </div>
             <div class="relative flex p-4">
-                <span class="cursor-pointer" onclick="toggleDropdown()">Administrador</span>
+                <div>
+                    <span class="cursor-pointer" onclick="toggleDropdown()">Administrador</span><span class="material-symbols-outlined">
+                        keyboard_arrow_down
+                    </span>
+                </div>
+
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
                         <a href="#">Logout</a>
@@ -69,10 +74,11 @@
                 </div>
             </div>
         </header>
+        <!-- aqui comienza el encabezado de la tabla  -->
         <main>
             <div class="flex justify-between p-4">
                 <div>
-                    <h1 class="text-3xl text-black font-semibold">Lista de Permisos</h1>
+                    <h1 class="text-3xl text-black font-semibold">Lista de Maestros</h1>
                 </div>
                 <div>
                     <a class="text-blue-500" href="#">
@@ -85,7 +91,11 @@
             </div>
             <div class=" ring-1 ring-[#c2c5cd] mx-4">
                 <section class="flex flex-col">
-                    <h2 class="text-xl pl-2 py-2 border-2 border-white border-b-[#c2c5cd]">Información de permisos</h2>
+                    <div class="flex justify-between">
+                        <h2 class="text-xl pl-2 py-2 border-2 border-white border-b-[#c2c5cd]">Información de maestros</h2>
+                        <button class="bg-blue-500 text-white mr-4 mt-4 rounded-md px-2 py-1">Agregar Maestro</button>
+                    </div>
+
                     <div class="flex justify-between py-4">
                         <div class="flex ml-4">
                             <button class="bg-[#6c747e] px-3 py-1 rounded-l-md">Copy</button>
@@ -98,22 +108,28 @@
                             <input type="text" class="ring-1 ring-gray-400 rounded-sm">
                         </div>
                     </div>
+
+                    <!-- esta de aqui es la tabla -->
                     <table class=" flex flex-col border-[1px] border-[#c2c5cd] mx-3">
                         <thead class="flex flex-col border-2 border-b-[#c2c5cd]">
-                            <tr class="flex justify-around">
+                            <tr class="flex justify-between">
                                 <th class="text-lg font-semibold">#</th>
-                                <th class="text-lg font-semibold px-8">Email/Usuario</th>
-                                <th class="text-lg font-semibold">Permiso</th>
-                                <th class="text-lg font-semibold">Estado</th>
+                                <th class="text-lg font-semibold">Nombre</th>
+                                <th class="text-lg font-semibold">Email</th>
+                                <th class="text-lg font-semibold">Dirección</th>
+                                <th class="text-lg font-semibold">Fec. de Nacimiento</th>
+                                <th class="text-lg font-semibold">Clase Asignada</th>
                                 <th class="text-lg font-semibold">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="flex justify-around">
+                            <tr class="flex justify-between">
                                 <td>1</td>
+                                <td>Thoma Wayne</td>
                                 <td>admin@admin</td>
-                                <td>Administrador</td>
-                                <td>Activo</td>
+                                <td>Direccion desconocida</td>
+                                <td>28-09-2023</td>
+                                <td>Sin asignar</td>
                                 <td>
                                     <span class="material-symbols-outlined">
                                         edit_square

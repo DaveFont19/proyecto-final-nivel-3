@@ -31,19 +31,19 @@
                 </span>
                 <label class="cursor-pointer text-[#c2c5cd]">Permisos</label>
             </a>
-            <a class="gap-3 flex items-center">
+            <a href="/views/admin/CRUD_MAESTROS/admin_maestros_dashboard.php" class="gap-3 flex items-center">
                 <span id="icon" class="material-symbols-outlined" >
                     account_box
                 </span>
                 <label class="cursor-pointer text-[#c2c5cd]">Maestros</label>
             </a>
-            <a class="gap-3 flex items-center">
+            <a href="/views/admin/CRUD_ALUMNOS/admin_alumnos_dashboard.php" class="gap-3 flex items-center">
                 <span id="icon" class="material-symbols-outlined">
                     school
                 </span>
                 <label class="cursor-pointer text-[#c2c5cd]">Alumnos</label>
             </a>
-            <a class="gap-3 flex items-center">
+            <a href="/views/admin/CRUD_CLASES/admin_clases_dashboard.php" class="gap-3 flex items-center">
                 <span id="icon" class="material-symbols-outlined">
                     tv
                 </span>
@@ -52,7 +52,7 @@
         </div>
 
     </aside>
-    <section class="flex flex-col w-screen">
+    <section class="flex flex-col w-10/12">
         <header class="p-1 flex justify-between shadow-md">
             <div class="flex gap-3 items-center">
                 <span class="material-symbols-outlined">
