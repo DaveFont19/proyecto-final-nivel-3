@@ -83,7 +83,7 @@
             <!-- esta de aqui es la tabla -->
             <div class="flex w-full gap-4 justify-between">
                 <div class="flex flex-col bg-white w-2/3 border-2 border-[#c2c5cd] ml-4">
-                <h2 class="text-xl mb-8 pl-2 py-2 border-2 border-white border-b-[#c2c5cd]">Tus Materias Inscritas</h2>
+                    <h2 class="text-xl mb-8 pl-2 py-2 border-2 border-white border-b-[#c2c5cd]">Tus Materias Inscritas</h2>
                     <table class=" flex flex-col">
 
                         <thead class="flex flex-col border-2 border-white border-b-[#c2c5cd]">
@@ -106,12 +106,14 @@
                     </table>
                 </div>
 
-                <form class="bg-white w-1/3" method="post" action="#s">
-                    <h2>Materias para inscribir</h2>
-
+                <form class="bg-white w-1/3 flex flex-col" method="post" action="#s">
+                    <h2 class="text-xl mb-8 px-2 border-2 border-white border-b-[#c2c5cd]">Materias para inscribir</h2>
+                    <label class="px-2">Selecciona la(s) Clase(s) usa la tecla ctrl</label>
+                    <li class="border-2 border-[#c2c5cd] list-none mx-2">
                         <ul>Front-end</ul>
                         <ul>Back-end</ul>
-
+                    </li>
+                    <button type="submit" class="bg-blue-500 self-end px-2 py-1 m-3 rounded-md text-white hover:bg-blue-700 active:bg-blue-800">Inscribirse</button>
                 </form>
             </div>
 

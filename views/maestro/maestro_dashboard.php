@@ -8,34 +8,28 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="/handle_db/dropdown.js" defer></script>
     <link href="/style.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Maestro Dashboard</title>
 </head>
 
 <body class="flex w-screen h-screen">
 
     <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
-        <a href="/views/alumno/alumno_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
-            <img href="/views/admin/admin_dashboard.php" class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
+        <a href="/views/maestro/maestro_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
+            <img class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
             <label class=" text-[#c2c5cd] text-xl">Universidad</label>
         </a>
         <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
-            <span class=" text-[#c2c5cd]">Alumno</span>
-            <span class=" text-[#c2c5cd]">David Fontes</span>
+            <span class=" text-[#c2c5cd]">Maestro</span>
+            <span class=" text-[#c2c5cd]">maestro maestro</span>
         </div>
         <div class="flex flex-col gap-6 p-4">
-            <span class="text-[#c2c5cd] px-6">MENÚ ALUMNOS
+            <span class="text-[#c2c5cd] px-6">MENÚ MAESTROS
             </span>
-            <a href="/views/alumno/alumnos_calificaciones.php" class="gap-3 flex items-center">
-            <span id="icon" class="material-symbols-outlined">
-task
-</span>
-                <label class="cursor-pointer text-[#c2c5cd]">Ver Calificaciones</label>
-            </a>
-            <a href="/views/alumno/CLASES/alumno_clases_dashboard.php" class="gap-3 flex items-center">
+            <a href="/views/maestro/maestro_alumnos_dashboard.php" class="gap-3 flex items-center">
                 <span id="icon" class="material-symbols-outlined">
-                    desktop_windows
+                    school
                 </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Administra tus clases</label>
+                <label class="cursor-pointer text-[#c2c5cd]">Alumnos</label>
             </a>
         </div>
 
@@ -53,7 +47,7 @@ task
                 <span class="cursor-pointer" onclick="toggleDropdown()">David Fontes</span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
-                        <a href="/views/alumno/alumno_edit.php">Perfil</a>
+                        <a href="/views/maestro/maestro_edit.php">Perfil</a>
                         <a href="#">Logout</a>
                     </lu>
                 </div>
