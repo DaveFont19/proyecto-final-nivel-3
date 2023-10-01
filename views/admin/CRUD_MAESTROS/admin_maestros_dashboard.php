@@ -1,3 +1,25 @@
+<?php
+ session_start();
+if($_SESSION["user-data"]["roles"] === "ADMIN"){
+    try {
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "funval";
+        $user_data = $_SESSION["user-data"];
+
+        $db = new mysqli($host, $username, $password, $database);
+        $stmnt = $db->query("SELECT * FROM usuarios_universidad WHERE email = '$user_data[email]'");
+        $usuario = $stmnt->fetch_assoc();
+    } catch (mysqli_sql_exception $e) {
+        echo "ERROR: " . $e->getMessage();
+    }
+
+} else {
+    header("location: /views/login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +90,7 @@
 
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
-                        <a href="#">Logout</a>
+                        <a href="/handle_db/logout.php">Logout</a>
                         <a href="#">Dashboard</a>
                     </lu>
                 </div>

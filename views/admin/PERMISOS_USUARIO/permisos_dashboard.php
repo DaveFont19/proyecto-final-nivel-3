@@ -1,6 +1,7 @@
+<?php require "../helper_admin.php"
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,47 +11,9 @@
     <link href="/style.css" rel="stylesheet">
     <title>Document</title>
 </head>
-
 <body class="flex w-screen h-screen">
-
-    <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
-        <a href="/views/admin/admin_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
-            <img href="/views/admin/admin_dashboard.php" class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
-            <label class=" text-[#c2c5cd] text-xl">Universidad</label>
-        </a>
-        <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
-            <span class=" text-[#c2c5cd]">admin</span>
-            <span class=" text-[#c2c5cd]">Administrador</span>
-        </div>
-        <div class="flex flex-col gap-6 p-4">
-            <span class="text-[#c2c5cd] px-6">MENÚ ADMINISTRACIÓN
-            </span>
-            <a href="/views/admin/PERMISOS_USUARIO/permisos_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    manage_accounts
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Permisos</label>
-            </a>
-            <a href="/views/admin/CRUD_MAESTROS/admin_maestros_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    account_box
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Maestros</label>
-            </a>
-            <a href="/views/admin/CRUD_ALUMNOS/admin_alumnos_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    school
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Alumnos</label>
-            </a>
-            <a href="/views/admin/CRUD_CLASES/admin_clases_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    tv
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Clases</label>
-            </a>
-        </div>
-    </aside>
+    <?php require "../aside_bar.php"
+    ?>
     <section class="flex flex-col w-screen">
         <header class="p-1 flex justify-between shadow-md">
             <div class="flex gap-3 items-center">
@@ -63,7 +26,7 @@
                 <span class="cursor-pointer" onclick="toggleDropdown()">Administrador</span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
-                        <a href="#">Logout</a>
+                        <a href="/handle_db/logout.php">Logout</a>
                         <a href="#">Dashboard</a>
                     </lu>
                 </div>
@@ -75,12 +38,8 @@
                     <h1 class="text-3xl text-black font-semibold">Lista de Permisos</h1>
                 </div>
                 <div>
-                    <a class="text-blue-500" href="#">
-                        Home
-                    </a>
-                    <a>
-                        / Dashboard
-                    </a>
+                    <a class="text-blue-500" href="#"> Home </a>
+                    <a href="../admin_dashboard.php"> / Dashboard</a>
                 </div>
             </div>
             <div class=" ring-1 ring-[#c2c5cd] mx-4">
@@ -88,10 +47,10 @@
                     <h2 class="text-xl pl-2 py-2 border-2 border-white border-b-[#c2c5cd]">Información de permisos</h2>
                     <div class="flex justify-between py-4">
                         <div class="flex ml-4">
-                            <button class="bg-[#6c747e] px-3 py-1 rounded-l-md">Copy</button>
-                            <button class="bg-[#6c747e] px-3 py-1">Excel</button>
-                            <button class="bg-[#6c747e] px-3 py-1">PDF</button>
-                            <select class="bg-[#6c747e] rounded-r-md">Colum Visibility</select>
+                            <button class="bg-[#6c747e] px-3 py-1 rounded-l-md text-white">Copy</button>
+                            <button class="bg-[#6c747e] px-3 py-1 text-white">Excel</button>
+                            <button class="bg-[#6c747e] px-3 py-1 text-white">PDF</button>
+                            <select class="bg-[#6c747e] rounded-r-md text-white">Colum Visibility</select>
                         </div>
                         <div class="mr-4">
                             <label>Search</label>
@@ -101,32 +60,38 @@
                     <table class=" flex flex-col border-[1px] border-[#c2c5cd] mx-3">
                         <thead class="flex flex-col border-2 border-b-[#c2c5cd]">
                             <tr class="flex justify-around">
-                                <th class="text-lg font-semibold">#</th>
-                                <th class="text-lg font-semibold px-8">Email/Usuario</th>
-                                <th class="text-lg font-semibold">Permiso</th>
-                                <th class="text-lg font-semibold">Estado</th>
-                                <th class="text-lg font-semibold">Acciones</th>
+                                <th class="text-lg font-semibold w-1/6">#</th>
+                                <th class="text-lg font-semibold w-2/6">Email/Usuario</th>
+                                <th class="text-lg font-semibold w-1/6">Permiso</th>
+                                <th class="text-lg font-semibold w-1/6">Estado</th>
+                                <th class="text-lg font-semibold w-1/6">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="">
-                            <tr class="flex justify-around">
-                                <td>1</td>
-                                <td>admin@admin</td>
-                                <td>Administrador</td>
-                                <td>Activo</td>
-                                <td>
-                                    <span class="material-symbols-outlined">
-                                        edit_square
-                                    </span>
-                                </td>
-                            </tr>
+                        <tbody class="flex flex-col ">
+                            <?php
+                            foreach ($usuarios as $persona) {
+                            ?>
+                                <tr class="flex pl-32  border-2 border-b-[#c2c5cd]">
+                                    <td class=" w-1/6"><?= $persona["0"] ?></td>
+                                    <td class=" w-2/6 pl-24"><?= $persona["4"] ?></td>
+                                    <td class=" w-1/6 font-bold pl-8 <?= $persona['8'] ?>"><?= $persona["8"] ?></td>
+                                    <td class=" w-1/6 pl-16 <?=($persona['11'] == 'Activo' )? 'text-green-500' : 'text-red-500' ?>" ><?= $persona["11"] ?></td>
+                                    <td class=" w-1/6 cursor-pointer pl-20">
+                                        <span class="material-symbols-outlined" onclick="openModalEditAdmin(event)">
+                                            edit_square
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </section>
+                <?php require "./permisos_edit.php"
+                ?>
             </div>
-
         </main>
     </section>
 </body>
-
 </html>
