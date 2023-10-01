@@ -1,7 +1,29 @@
+<?php
+ session_start();
+if($_SESSION["user-data"]["roles"] === "ADMIN"){
+    try {
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "funval";
+        $user_data = $_SESSION["user-data"];
+
+        $db = new mysqli($host, $username, $password, $database);
+        $stmnt = $db->query("SELECT * FROM usuarios_universidad WHERE email = '$user_data[email]'");
+        $usuario = $stmnt->fetch_assoc();
+    } catch (mysqli_sql_exception $e) {
+        echo "ERROR: " . $e->getMessage();
+    }
+
+} else {
+    header("location: /views/login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+ <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/dist/output.css" rel="stylesheet">
@@ -14,13 +36,15 @@
 <body class="flex w-screen h-screen">
 
     <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
-        <div class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
-            <img href="/views/admin/admin_dashboard.php" class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
+        <a href="/views/admin/admin_dashboard.php"  class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
+            <img class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
             <label class=" text-[#c2c5cd] text-xl">Universidad</label>
-        </div>
+        </a>
         <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
-            <span class=" text-[#c2c5cd]">admin</span>
-            <span class=" text-[#c2c5cd]">Administrador</span>
+            <span class=" text-[#c2c5cd]">Admin</span>
+            <?php 
+            echo "<span class='text-[#c2c5cd]'>$usuario[nombre_usuario] $usuario[apellido] </span>";
+            ?>
         </div>
         <div class="flex flex-col gap-6 p-4">
             <span class="text-[#c2c5cd] px-6">MENÚ ADMINISTRACIÓN
@@ -52,8 +76,8 @@
         </div>
 
     </aside>
-    <section class="flex flex-col w-10/12">
-        <header class="p-1 flex justify-between shadow-md">
+    <section class="flex flex-col w-10/12  bg-[#f5f6fa]">
+        <header class="p-1 flex justify-between shadow-md bg-white">
             <div class="flex gap-3 items-center">
                 <span class="material-symbols-outlined">
                     menu
@@ -65,7 +89,7 @@
                 <span class="cursor-pointer" onclick="toggleDropdown()">Administrador</span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
-                        <a href="#">Logout</a>
+                        <a href="/handle_db/logout.php">Logout</a>
                         <a href="#">Dashboard</a>
                     </lu>
                 </div>
@@ -87,7 +111,7 @@
                 </div>
             </div>
         </main>
-        <div class="ml-4 w-1/2 rounded-md shadow-xl">
+        <div class="ml-4 w-1/2 rounded-md shadow-xl bg-white">
             <h2 class="pl-3 text-lg">
                 Bienvenido
             </h2>
