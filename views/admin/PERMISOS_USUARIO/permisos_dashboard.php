@@ -75,7 +75,7 @@
                                     <td class=" w-1/6"><?= $persona["0"] ?></td>
                                     <td class=" w-2/6 pl-24"><?= $persona["4"] ?></td>
                                     <td class=" w-1/6 font-bold pl-8 <?= $persona['8'] ?>"><?= $persona["8"] ?></td>
-                                    <td class=" w-1/6 pl-16 <?=($persona['11'] == 'Activo' )? 'text-green-500' : 'text-red-500' ?>" ><?= $persona["11"] ?></td>
+                                    <td class=" w-1/6 pl-16 <?=($persona['9'] == 'Activo' )? 'text-green-500' : 'text-red-500' ?>" ><?= $persona["9"] ?></td>
                                     <td class=" w-1/6 cursor-pointer pl-20">
                                         <span class="material-symbols-outlined" onclick="openModalEditAdmin(event)">
                                             edit_square

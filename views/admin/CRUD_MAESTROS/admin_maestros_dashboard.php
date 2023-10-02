@@ -1,6 +1,6 @@
 <?php
- session_start();
-if($_SESSION["user-data"]["roles"] === "ADMIN"){
+session_start();
+if ($_SESSION["user-data"]["roles"] === "ADMIN") {
     try {
         $host = "localhost";
         $username = "root";
@@ -9,14 +9,22 @@ if($_SESSION["user-data"]["roles"] === "ADMIN"){
         $user_data = $_SESSION["user-data"];
 
         $db = new mysqli($host, $username, $password, $database);
-        $stmnt = $db->query("SELECT * FROM usuarios_universidad WHERE email = '$user_data[email]'");
-        $usuario = $stmnt->fetch_assoc();
+        $stmnt = $db->query("SELECT u.id_usuario, u.nombre_usuario, u.apellido, u.email, u.direccion, u.fecha_nacimiento, m.nombre_materia
+        FROM usuarios_universidad AS u
+        INNER JOIN materias_inscritas AS ma ON u.id_usuario = ma.alumno_id
+        INNER JOIN materias_universidad AS m ON ma.materia_id = m.id_materia
+        WHERE roles= 'MAESTRO'");
+        $usuarios = $stmnt->fetch_all();
+
+        $email = $_SESSION["user-data"]["email"];
+
+        $stmnt2 = $db->query("SELECT * FROM usuarios_universidad WHERE email='$email'");
+        $usuario = $stmnt2->fetch_assoc();
     } catch (mysqli_sql_exception $e) {
         echo "ERROR: " . $e->getMessage();
     }
-
 } else {
-    header("location: /views/login.php");
+    header("location: /handle_db/logout.php");
     exit();
 }
 ?>
@@ -34,45 +42,9 @@ if($_SESSION["user-data"]["roles"] === "ADMIN"){
 </head>
 
 <body class="flex w-screen h-screen">
-
-    <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
-        <a href="/views/admin/admin_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
-            <img href="/views/admin/admin_dashboard.php" class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
-            <label class=" text-[#c2c5cd] text-xl">Universidad</label>
-        </a>
-        <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
-            <span class=" text-[#c2c5cd]">admin</span>
-            <span class=" text-[#c2c5cd]">Administrador</span>
-        </div>
-        <div class="flex flex-col gap-6 p-4">
-            <span class="text-[#c2c5cd] px-6">MENÚ ADMINISTRACIÓN
-            </span>
-            <a href="/views/admin/PERMISOS_USUARIO/permisos_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    manage_accounts
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Permisos</label>
-            </a>
-            <a href="/views/admin/CRUD_MAESTROS/admin_maestros_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    account_box
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Maestros</label>
-            </a>
-            <a href="/views/admin/CRUD_ALUMNOS/admin_alumnos_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    school
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Alumnos</label>
-            </a>
-            <a href="/views/admin/CRUD_CLASES/admin_clases_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    tv
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Clases</label>
-            </a>
-        </div>
-    </aside>
+    <?php
+    require "../aside_bar.php"
+    ?>
     <section class="flex flex-col w-screen">
         <header class="p-1 flex justify-between shadow-md">
             <div class="flex gap-3 items-center">
@@ -145,19 +117,25 @@ if($_SESSION["user-data"]["roles"] === "ADMIN"){
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="flex justify-between">
-                                <td>1</td>
-                                <td>Thoma Wayne</td>
-                                <td>admin@admin</td>
-                                <td>Direccion desconocida</td>
-                                <td>28-09-2023</td>
-                                <td>Sin asignar</td>
-                                <td>
-                                    <span class="material-symbols-outlined">
-                                        edit_square
-                                    </span>
-                                </td>
-                            </tr>
+                            <?php
+                            foreach ($usuarios as $persona) {
+                            ?>
+                                <tr class="flex border-2 border-b-[#c2c5cd]">
+                                    <td class=" w-1/12"><?= $persona["0"] ?></td>
+                                    <td class=" w-2/12 pl-24"><?= $persona["1"] . " " . $persona["2"] ?></td>
+                                    <td class=" w-2/12"><?= $persona["3"] ?></td>
+                                    <td class=" w-2/12"><?= $persona["4"] ?></td>
+                                    <td class=" w-2/12"><?= $persona["5"] ?></td>
+                                    <td class=" w-2/12"><?= ($persona["6"]) ? $persona['6'] : "Sin asignar" ?></td>
+                                    <td class=" w-1/12 cursor-pointer pl-20">
+                                        <span class="material-symbols-outlined" onclick="openModalEditAdmin(event)">
+                                            edit_square
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </section>
