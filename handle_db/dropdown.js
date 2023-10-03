@@ -20,7 +20,8 @@ window.onclick = function (event) {
 
 function openModalEditAdmin(event) {
     let modal = document.getElementById('modalEditar');
-    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 
     let fila = event.target.closest('tr');
     let valores = {

@@ -5,7 +5,7 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
         $host = "localhost";
         $username = "root";
         $password = "";
-        $database = "funval";
+        $database = "universidad_php";
         $user_data = $_SESSION["user-data"];
 
         $db = new mysqli($host, $username, $password, $database);

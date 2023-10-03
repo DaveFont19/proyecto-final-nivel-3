@@ -1,4 +1,4 @@
-<div id="modalEditar" class="modal justify-center">
+<div id="modalEditar" class="modal justify-center hidden">
     <div class="w-[400px] h-[420px] self-center bg-white p-4">
         <h2 class="font-semibold text-4xl p-6  border-2 border-white border-b-[#c2c5cd]">Editar el usuario</h2>
         <form class="flex flex-col mt-4" method="post" action="/handle_db/admin_handle_db/actualizar_usuario.php">

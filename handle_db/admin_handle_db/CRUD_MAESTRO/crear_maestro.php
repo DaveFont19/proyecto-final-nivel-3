@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] ==="POST" ){
     
     
     $result = $mysqli->query("INSERT INTO usuarios_universidad (email, nombre_usuario, apellido, direccion, fecha_nacimiento, roles) values ('$email','$nombre_usuario', '$apellido', '$direccion', '$fecha_nacimiento', 'MAESTRO')");
-    $result2 = $mysqli->query("INSERT INTO materias_inscritas (id_maestro, materia_id) VALUES ('$lastID', '$materia_id')");
+    $result2 = $mysqli->query("INSERT INTO materias_maestros (maestro_asignado, materia_id) VALUES ('$lastID', '$materia_id')");
       header("location: /views/admin/CRUD_MAESTROS/admin_maestros_dashboard.php");
         }
 

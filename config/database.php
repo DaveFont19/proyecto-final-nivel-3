@@ -3,7 +3,7 @@ try {
     $host="localhost";
     $username="root";
     $password="";
-    $dbname="funval";
+    $dbname="universidad_php";
 
     $mysqli= new mysqli($host,$username,$password,$dbname);
 
