@@ -10,16 +10,6 @@
     color: #c2c5cd;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-}
 
 
 .close {
@@ -44,4 +34,24 @@
 }
 .ALUMNO{
     color: #6f747e;
+}
+.modal-editar {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-nuevo{
+position: fixed;
+z-index: 1 ;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.4);
 }

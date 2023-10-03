@@ -1,32 +1,4 @@
-<?php
-session_start();
-if ($_SESSION["user-data"]["roles"] === "ADMIN") {
-    try {
-        $host = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "funval";
-        $user_data = $_SESSION["user-data"];
-
-        $db = new mysqli($host, $username, $password, $database);
-        $stmnt = $db->query("SELECT u.id_usuario, u.nombre_usuario, u.apellido, u.email, u.direccion, u.fecha_nacimiento, m.nombre_materia
-        FROM usuarios_universidad AS u
-        INNER JOIN materias_inscritas AS ma ON u.id_usuario = ma.alumno_id
-        INNER JOIN materias_universidad AS m ON ma.materia_id = m.id_materia
-        WHERE roles= 'MAESTRO'");
-        $usuarios = $stmnt->fetch_all();
-
-        $email = $_SESSION["user-data"]["email"];
-
-        $stmnt2 = $db->query("SELECT * FROM usuarios_universidad WHERE email='$email'");
-        $usuario = $stmnt2->fetch_assoc();
-    } catch (mysqli_sql_exception $e) {
-        echo "ERROR: " . $e->getMessage();
-    }
-} else {
-    header("location: /handle_db/logout.php");
-    exit();
-}
+<?php require "../CRUD_MAESTROS/consulta_maestros.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,13 +9,18 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
     <link href="/dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="/handle_db/dropdown.js" defer></script>
+    <script src="/handle_db/admin_handle_db/CRUD_MAESTRO/modal.js" defer></script>
+    <script src="/handle_db/admin_handle_db/CRUD_MAESTRO/modalNuevoUsuario.js" defer></script>
     <link href="/style.css" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body class="flex w-screen h-screen">
-    <?php
-    require "../aside_bar.php"
+    <?php require "../CRUD_MAESTROS/admin_maestros_nuevo.php"
+    ?>
+    <?php require "../CRUD_MAESTROS/admin_maestros_edit.php"
+    ?>
+    <?php require "../aside_bar.php"
     ?>
     <section class="flex flex-col w-screen">
         <header class="p-1 flex justify-between shadow-md">
@@ -70,26 +47,22 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
         </header>
         <!-- aqui comienza el encabezado de la tabla  -->
         <main>
+
             <div class="flex justify-between p-4">
                 <div>
                     <h1 class="text-3xl text-black font-semibold">Lista de Maestros</h1>
                 </div>
                 <div>
-                    <a class="text-blue-500" href="#">
-                        Home
-                    </a>
-                    <a>
-                        / Dashboard
-                    </a>
+                    <a class="text-blue-500" href="#">Home</a>
+                    <a>/ Dashboard</a>
                 </div>
             </div>
             <div class=" ring-1 ring-[#c2c5cd] mx-4">
                 <section class="flex flex-col">
                     <div class="flex justify-between">
                         <h2 class="text-xl pl-2 py-2 border-2 border-white border-b-[#c2c5cd]">Información de maestros</h2>
-                        <button class="bg-blue-500 text-white mr-4 mt-4 rounded-md px-2 py-1">Agregar Maestro</button>
+                        <button type="button" class="bg-blue-500 text-white mr-4 mt-4 rounded-md px-2 py-1" onclick="modalNuevo()">Agregar Maestro</button>
                     </div>
-
                     <div class="flex justify-between py-4">
                         <div class="flex ml-4">
                             <button class="bg-[#6c747e] px-3 py-1 rounded-l-md">Copy</button>
@@ -102,7 +75,6 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
                             <input type="text" class="ring-1 ring-gray-400 rounded-sm">
                         </div>
                     </div>
-
                     <!-- esta de aqui es la tabla -->
                     <table class=" flex flex-col border-[1px] border-[#c2c5cd] mx-3">
                         <thead class="flex flex-col border-2 border-b-[#c2c5cd]">
@@ -122,13 +94,16 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
                             ?>
                                 <tr class="flex border-2 border-b-[#c2c5cd]">
                                     <td class=" w-1/12"><?= $persona["0"] ?></td>
-                                    <td class=" w-2/12 pl-24"><?= $persona["1"] . " " . $persona["2"] ?></td>
+                                    <td class="w-1/12"><?= $persona["1"] ?></td>
+                                    <td class="w-1/12"><?= $persona["2"] ?></td>
                                     <td class=" w-2/12"><?= $persona["3"] ?></td>
                                     <td class=" w-2/12"><?= $persona["4"] ?></td>
                                     <td class=" w-2/12"><?= $persona["5"] ?></td>
                                     <td class=" w-2/12"><?= ($persona["6"]) ? $persona['6'] : "Sin asignar" ?></td>
+                                    <td class="hidden"><?= $persona["7"] ?></td>
+                                    <td class="hidden"><?= $persona["8"] ?></td>
                                     <td class=" w-1/12 cursor-pointer pl-20">
-                                        <span class="material-symbols-outlined" onclick="openModalEditAdmin(event)">
+                                        <span class="material-symbols-outlined" onclick="modalEdit( event)">
                                             edit_square
                                         </span>
                                     </td>
@@ -140,7 +115,6 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
                     </table>
                 </section>
             </div>
-
         </main>
     </section>
 </body>
