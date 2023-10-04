@@ -1,6 +1,6 @@
 <div id="modalEditar" class="modal-editar justify-center hidden">
     <div class="w-[600px] h-[720px] self-center bg-white p-4">
-        <h2 class="font-semibold text-4xl p-6  border-2 border-white border-b-[#c2c5cd]">Editar Maestro</h2>
+        <h2 class="font-semibold text-4xl p-6  border-2 border-white border-b-[#c2c5cd]">Editar Alumno</h2>
         <form class="flex flex-col mt-4" method="post" action="/handle_db/admin_handle_db/CRUD_ALUMNOS/editar_alumnos.php">
             <input id='id_usuario' hidden name="id_usuario">
             <div class="flex flex-col mb-2">

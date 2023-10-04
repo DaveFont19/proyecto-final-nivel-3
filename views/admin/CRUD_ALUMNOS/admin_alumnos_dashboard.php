@@ -62,15 +62,15 @@ require "../aside_bar.php"
                 <section class="flex flex-col">
                     <div class="flex justify-between items-center border-2 border-white border-b-[#c2c5cd]">
                         <h2 class="text-xl pl-2 py-2 ">Información de alumnos</h2>
-                        <button class="bg-blue-500 text-white mr-4 my-2 rounded-md px-2 py-1">Agregar Alumno</button>
+                        <button class="bg-blue-500 text-white mr-4 my-2 rounded-md px-2 py-1" onclick="modalNuevo()">Agregar Alumno</button>
                     </div>
 
                     <div class="flex justify-between py-4">
                         <div class="flex ml-4">
-                            <button class="bg-[#6c747e] px-3 py-1 rounded-l-md">Copy</button>
-                            <button class="bg-[#6c747e] px-3 py-1">Excel</button>
-                            <button class="bg-[#6c747e] px-3 py-1">PDF</button>
-                            <select class="bg-[#6c747e] rounded-r-md">Colum Visibility</select>
+                            <button class="bg-[#6c747e] px-3 py-1 rounded-l-md text-white">Copy</button>
+                            <button class="bg-[#6c747e] px-3 py-1 text-white">Excel</button>
+                            <button class="bg-[#6c747e] px-3 py-1 text-white">PDF</button>
+                            <select class="bg-[#6c747e] rounded-r-md text-white">Colum Visibility</select>
                         </div>
                         <div class="mr-4">
                             <label>Search</label>
@@ -129,7 +129,8 @@ require "../aside_bar.php"
                     </table>
                 </section>
             </div>
-
+<?php require "./admin_alumno_nuep.php"
+?>
         </main>
     </section>
 </body>
