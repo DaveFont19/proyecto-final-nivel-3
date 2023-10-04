@@ -65,10 +65,10 @@
                     </div>
                     <div class="flex justify-between py-4">
                         <div class="flex ml-4">
-                            <button class="bg-[#6c747e] px-3 py-1 rounded-l-md">Copy</button>
-                            <button class="bg-[#6c747e] px-3 py-1">Excel</button>
-                            <button class="bg-[#6c747e] px-3 py-1">PDF</button>
-                            <select class="bg-[#6c747e] rounded-r-md">Colum Visibility</select>
+                            <button class="bg-[#6c747e] px-3 py-1 rounded-l-md text-white">Copy</button>
+                            <button class="bg-[#6c747e] px-3 py-1 text-white">Excel</button>
+                            <button class="bg-[#6c747e] px-3 py-1 text-white">PDF</button>
+                            <select class="bg-[#6c747e] rounded-r-md text-white">Colum Visibility</select>
                         </div>
                         <div class="mr-4">
                             <label>Search</label>
@@ -99,7 +99,7 @@
                                     <td class=" w-2/12"><?= $persona["3"] ?></td>
                                     <td class=" w-2/12"><?= $persona["4"] ?></td>
                                     <td class=" w-2/12"><?= $persona["5"] ?></td>
-                                    <td class=" w-2/12"><?= ($persona["6"]) ? $persona['6'] : "Sin asignar" ?></td>
+                                    <td class=" w-2/12 font-semibold <?= ($persona['6']) ? $persona['6'] : 'Sin asignar' ?>"><?= ($persona["6"]) ? $persona['6'] : "Sin asignar" ?></td>
                                     <td class="hidden"><?= $persona["7"] ?></td>
                                     <td class="hidden"><?= $persona["8"] ?></td>
                                     <td class=" w-1/12 cursor-pointer pl-20">

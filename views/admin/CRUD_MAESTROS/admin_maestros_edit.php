@@ -38,7 +38,7 @@
                 </select>
             </div>
             <input id='inputHidden' class="hidden" name="id_materia">
-            <input id='id' class="hidden" name="id">
+            <input id='id' class="hidden" name="id_materia_maestro">
             <div class="flex justify-end gap-4 py-8">
                 <button type="button" onclick="modalEditClose()" class="bg-gray-500 rounded-md text-white px-2 py-1">Cerrar</button>
                 <button type="submit" class="bg-blue-500 rounded-md text-white px-2 py-1">Guarda Cambios</button>

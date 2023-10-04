@@ -1,32 +1,4 @@
-<?php
-session_start();
-if ($_SESSION["user-data"]["roles"] === "ADMIN") {
-    try {
-        $host = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "funval";
-        $user_data = $_SESSION["user-data"];
-
-        $db = new mysqli($host, $username, $password, $database);
-        $stmnt = $db->query("SELECT u.id_usuario, u.nombre_usuario, u.apellido, u.email, u.direccion, u.fecha_nacimiento, m.nombre_materia
-        FROM usuarios_universidad AS u
-        INNER JOIN materias_inscritas AS ma ON u.id_usuario = ma.alumno_id
-        INNER JOIN materias_universidad AS m ON ma.materia_id = m.id_materia
-        WHERE roles= 'ALUMNO'");
-        $usuarios = $stmnt->fetch_all();
-
-        $email = $_SESSION["user-data"]["email"];
-
-        $stmnt2 = $db->query("SELECT * FROM usuarios_universidad WHERE email='$email'");
-        $usuario = $stmnt2->fetch_assoc();
-    } catch (mysqli_sql_exception $e) {
-        echo "ERROR: " . $e->getMessage();
-    }
-} else {
-    header("location: /handle_db/logout.php");
-    exit();
-}
+<?php require "./consulta_alumno.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,11 +10,13 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="/handle_db/dropdown.js" defer></script>
     <link href="/style.css" rel="stylesheet">
+    <script src="/handle_db/admin_handle_db/CRUD_ALUMNOS/modal_alumnos.js"></script>
     <title>Document</title>
 </head>
 
 <body class="flex w-screen h-screen">
-
+<?php require "./admin_alumno_editar.php"
+?>
 <?php
 require "../aside_bar.php"
 ?>
@@ -121,22 +95,36 @@ require "../aside_bar.php"
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="flex justify-between">
-                                <td>1</td>
-                                <td>123456</td>
-                                <td>David Fontes</td>
-                                <td>alumno@alumno</td>
-                                <td>Direccion desconocida</td>
-                                <td>19-09-1997</td>
-                                <td>
-                                    <span class="material-symbols-outlined">
-                                        edit_square
-                                    </span>
-                                    <span class="material-symbols-outlined">
-                                        delete
-                                    </span>
-                                </td>
-                            </tr>
+                        <?php
+                            foreach ($usuarios as $persona) {
+                            ?>
+                                <tr class="flex border-2 border-b-[#c2c5cd]">
+                                    <td class=" w-1/12"><?= $persona["0"] ?></td>
+                                    <td class="w-1/12 ml-8"><?= $persona["1"] ?></td>
+                                    <td class="ml-28 mr-4"><?= $persona["2"] ?></td>
+                                    <td class="w-1/12"><?= $persona["3"] ?></td>
+                                    <td class="w-2/12 "><?= $persona["4"] ?></td>
+                                    <td class="w-2/12 ml-12 "><?= $persona["6"] ?></td>
+                                    <td class="w-1/12 "><?= $persona["7"] ?></td>
+                                    <td class="cursor-pointer pl-20">
+                                        <span class="material-symbols-outlined text-blue-600" onclick="modalEdit( event)">
+                                            edit_square
+                                        </span>
+                                    </td>
+                                    <td class="cursor-pointer ml-4">
+                                        <form method="post" action="/handle_db/admin_handle_db/CRUD_ALUMNOS/borrar_alumno.php">
+                                            <input name="id_usuario" value="<?=$persona['0']?>" hidden>
+                                            <button type="submit">
+                                                <span class="material-symbols-outlined text-red-500">
+                                                    delete
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </section>

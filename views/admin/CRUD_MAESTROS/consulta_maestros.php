@@ -11,8 +11,8 @@ if ($_SESSION["user-data"]["roles"] === "ADMIN") {
         $db = new mysqli($host, $username, $password, $database);
         $stmnt = $db->query("SELECT u.id_usuario, u.nombre_usuario, u.apellido, u.email, u.direccion, u.fecha_nacimiento, m.nombre_materia, m.id_materia, ma.id_materia_maestro
         FROM usuarios_universidad AS u
-        INNER JOIN materias_maestros AS ma ON u.id_usuario = ma.maestro_asignado
-        INNER JOIN materias_universidad AS m ON ma.materia_id = m.id_materia
+        LEFT JOIN materias_maestros AS ma ON u.id_usuario = ma.maestro_asignado
+        LEFT JOIN materias_universidad AS m ON ma.materia_id = m.id_materia
         WHERE roles= 'MAESTRO'");
         $usuarios = $stmnt->fetch_all();
 
