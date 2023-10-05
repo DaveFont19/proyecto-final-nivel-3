@@ -1,4 +1,39 @@
-<!DOCTYPE html>
+
+<?php
+session_start();
+if ($_SESSION["user-data"]["roles"] === "ALUMNO") {
+    try {
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "universidad_php";
+        $user_data = $_SESSION["user-data"];
+        $id_usuario = $_SESSION["user-data"]["id_usuario"];
+
+
+        $db = new mysqli($host, $username, $password, $database);
+
+        $stmnt = $db->query("SELECT ma.id_materia_alumnos , m.nombre_materia, ma.calificaciones, ma.mensaje_maestro
+        FROM materias_alumnos AS ma
+        INNER JOIN materias_maestros AS mm ON ma.id_maestros_materia = mm.id_materia_maestro
+        INNER JOIN materias_universidad AS m ON mm.materia_id = m.id_materia
+        WHERE matricula_alumnos = '$id_usuario'");
+        $calificaciones = $stmnt->fetch_all();
+
+
+        $email = $_SESSION["user-data"]["email"];
+        $stmnt3 = $db->query("SELECT * FROM usuarios_universidad WHERE id_usuario='$id_usuario'");
+        $usuario = $stmnt3->fetch_assoc();
+
+
+    } catch (mysqli_sql_exception $e) {
+        echo "ERROR: " . $e->getMessage();
+    }
+} else {
+    header("location: /handle_db/logout.php");
+    exit();
+}
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,33 +47,8 @@
 </head>
 
 <body class="flex w-screen h-screen">
-    <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
-        <a href="/views/alumno/alumno_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
-            <img href="/views/admin/admin_dashboard.php" class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
-            <label class=" text-[#c2c5cd] text-xl">Universidad</label>
-        </a>
-        <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
-            <span class=" text-[#c2c5cd]">Alumno</span>
-            <span class=" text-[#c2c5cd]">David Fontes</span>
-        </div>
-        <div class="flex flex-col gap-6 p-4">
-            <span class="text-[#c2c5cd] px-6">MENÚ ALUMNOS
-            </span>
-            <a href="/views/alumno/alumnos_calificaciones.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    task
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Ver Calificaciones</label>
-            </a>
-            <a href="/views/alumno/CLASES/alumno_clases_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    desktop_windows
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Administra tus clases</label>
-            </a>
-        </div>
-
-    </aside>
+<?php require "../aside_alumno.php"
+?>
     <section class="flex flex-col w-screen bg-[#f5f6fa]">
         <header class="p-1 flex justify-between shadow-md bg-white">
             <div class="flex gap-3 items-center">

@@ -5,11 +5,12 @@ if($_SESSION["user-data"]["roles"] === "ALUMNO"){
         $host = "localhost";
         $username = "root";
         $password = "";
-        $database = "funval";
-        $user_data = $_SESSION["user-data"];
+        $database = "universidad_php";
+        $user_data = $_SESSION["user-data"];     
+        $id_usuario = $_SESSION["user-data"]["id_usuario"];
 
         $db = new mysqli($host, $username, $password, $database);
-        $stmnt = $db->query("SELECT * FROM usuarios_universidad WHERE email = '$user_data[email]'");
+        $stmnt = $db->query("SELECT * FROM usuarios_universidad WHERE id_usuario = '$id_usuario'");
         $usuario = $stmnt->fetch_assoc();
     } catch (mysqli_sql_exception $e) {
         echo "ERROR: " . $e->getMessage();
@@ -34,34 +35,8 @@ if($_SESSION["user-data"]["roles"] === "ALUMNO"){
 </head>
 
 <body class="flex w-screen h-screen">
-
-    <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
-        <a href="/views/alumno/alumno_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
-            <img href="/views/admin/admin_dashboard.php" class="h-12 w-12 rounded-full" src="/assets/logo.jpg" alt="logo">
-            <label class=" text-[#c2c5cd] text-xl">Universidad</label>
-        </a>
-        <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
-            <span class=" text-[#c2c5cd]">Alumno</span>
-            <span class=" text-[#c2c5cd]">David Fontes</span>
-        </div>
-        <div class="flex flex-col gap-6 p-4">
-            <span class="text-[#c2c5cd] px-6">MENÚ ALUMNOS
-            </span>
-            <a href="/views/alumno/alumnos_calificaciones.php" class="gap-3 flex items-center">
-            <span id="icon" class="material-symbols-outlined">
-task
-</span>
-                <label class="cursor-pointer text-[#c2c5cd]">Ver Calificaciones</label>
-            </a>
-            <a href="/views/alumno/CLASES/alumno_clases_dashboard.php" class="gap-3 flex items-center">
-                <span id="icon" class="material-symbols-outlined">
-                    desktop_windows
-                </span>
-                <label class="cursor-pointer text-[#c2c5cd]">Administra tus clases</label>
-            </a>
-        </div>
-
-    </aside>
+<?php require "./aside_alumno.php"
+?>
     <section class="flex flex-col w-10/12 bg-[#f5f6fa]">
         <header class="p-1 flex justify-between shadow-md bg-white">
             <div class="flex gap-3 items-center">
@@ -75,7 +50,7 @@ task
                 <span class="cursor-pointer" onclick="toggleDropdown()">David Fontes</span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
-                        <a href="/views/alumno/alumno_edit.php">Perfil</a>
+                        <a href="/views/alumno/alumno_edit.php">Editar Perfil</a>
                         <a href="/handle_db/logout.php">Logout</a>
                     </lu>
                 </div>
