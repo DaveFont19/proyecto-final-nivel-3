@@ -5,7 +5,7 @@ if($_SESSION["user-data"]["roles"] === "MAESTRO"){
         $host = "localhost";
         $username = "root";
         $password = "";
-        $database = "funval";
+        $database = "universidad_php";
         $user_data = $_SESSION["user-data"];
 
         $db = new mysqli($host, $username, $password, $database);
@@ -42,7 +42,7 @@ if($_SESSION["user-data"]["roles"] === "MAESTRO"){
         </a>
         <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
             <span class=" text-[#c2c5cd]">Maestro</span>
-            <span class=" text-[#c2c5cd]">maestro maestro</span>
+            <span class=" text-[#c2c5cd]"><?= $usuario["nombre_usuario"] ?></span>
         </div>
         <div class="flex flex-col gap-6 p-4">
             <span class="text-[#c2c5cd] px-6">MENÚ MAESTROS
@@ -66,7 +66,7 @@ if($_SESSION["user-data"]["roles"] === "MAESTRO"){
             </div>
 
             <div class="relative flex p-4">
-                <span class="cursor-pointer" onclick="toggleDropdown()">David Fontes</span>
+                <span class="cursor-pointer" onclick="toggleDropdown()"><?= $usuario["nombre_usuario"] ?></span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
                         <a href="/views/maestro/maestro_edit.php">Perfil</a>

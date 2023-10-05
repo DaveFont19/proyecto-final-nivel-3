@@ -615,6 +615,14 @@ video {
   margin-top: 1.5rem;
 }
 
+.ml-32 {
+  margin-left: 8rem;
+}
+
+.ml-40 {
+  margin-left: 10rem;
+}
+
 .flex {
   display: flex;
 }
@@ -645,6 +653,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-40 {
+  height: 10rem;
 }
 
 .w-1\/12 {
@@ -713,6 +725,10 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-40 {
+  width: 10rem;
 }
 
 .cursor-pointer {

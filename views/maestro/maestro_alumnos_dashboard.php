@@ -1,3 +1,36 @@
+<?php
+session_start();
+if ($_SESSION["user-data"]["roles"] === "MAESTRO") {
+    try {
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "universidad_php";
+        $user_data = $_SESSION["user-data"];
+        $id_usuario = $_SESSION["user-data"]["id_usuario"];
+
+
+        $db = new mysqli($host, $username, $password, $database);
+
+        $stmnt = $db->query("SELECT ma.id_materia_alumnos , u.nombre_usuario, ma.calificaciones, ma.mensaje_maestro,  u.id_usuario
+        FROM materias_maestros AS mm
+        INNER JOIN materias_alumnos AS ma ON mm.id_materia_maestro = ma.id_maestros_materia
+        INNER JOIN usuarios_universidad AS u ON ma.matricula_alumnos = u.id_usuario
+        WHERE maestro_asignado = '$id_usuario'");
+        $alumnos = $stmnt->fetch_all();
+
+
+        $email = $_SESSION["user-data"]["email"];
+        $stmnt3 = $db->query("SELECT * FROM usuarios_universidad WHERE id_usuario='$id_usuario'");
+        $usuario = $stmnt3->fetch_assoc();
+    } catch (mysqli_sql_exception $e) {
+        echo "ERROR: " . $e->getMessage();
+    }
+} else {
+    header("location: /handle_db/logout.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +40,14 @@
     <link href="/dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="/handle_db/dropdown.js" defer></script>
+    <script src="/handle_db/maestro_hanlde_db/modal_maestro.js"></script>
     <link href="/style.css" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body class="flex w-screen h-screen">
+    <?php require "./mensaje_alumno.php"
+    ?>
 
     <aside class="bg-[#353a40] h-screen flex flex-col w-2/12">
         <a href="/views/maestro/maestro_dashboard.php" class="flex gap-2 items-center p-4 border-b-2 border-[#42474d]">
@@ -20,7 +56,7 @@
         </a>
         <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
             <span class=" text-[#c2c5cd]">Maestro</span>
-            <span class=" text-[#c2c5cd]">maestro maestro</span>
+            <span class=" text-[#c2c5cd]"><?= $usuario["nombre_usuario"] ?></span>
         </div>
         <div class="flex flex-col gap-6 p-4">
             <span class="text-[#c2c5cd] px-6">MENÚ MAESTROS
@@ -44,11 +80,11 @@
             </div>
 
             <div class="relative flex p-4">
-                <span class="cursor-pointer" onclick="toggleDropdown()">David Fontes</span>
+                <span class="cursor-pointer" onclick="toggleDropdown()"><?= $usuario["nombre_usuario"] ?></span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
                         <a href="/views/maestro/maestro_edit.php">Perfil</a>
-                        <a href="#">Logout</a>
+                        <a href="/handle_db/logout.php">Logout</a>
                     </lu>
                 </div>
             </div>
@@ -97,25 +133,36 @@
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="flex justify-between">
-                                <td>1</td>
-                                <td>Programacion</td>
-                                <td>85</td>
-                                <td>Aprobado</td>
-                                <td>
-                                    <span class="material-symbols-outlined">
-                                        note_add
-                                    </span>
-                                    <span class="material-symbols-outlined">
-                                        send
-                                    </span>
-                                </td>
-                            </tr>
+                            <?php
+                            foreach ($alumnos as $alumno) {
+                            ?>
+                                <tr class="flex border-2 border-b-[#c2c5cd]">
+                                    <td class=" w-1/5"><?= $alumno["0"] ?></td>
+                                    <td class="w-1/5"><?= $alumno["1"] ?></td>
+                                    <td class="w-1/5"><?= ($alumno["2"]) ? $alumno["2"] : "No hay Calificacion" ?></td>
+                                    <td class="w-1/5"><?= ($alumno["3"]) ? $alumno["3"] : "No hay Mensaje" ?></td>
+                                    <td class="cursor-pointer">
+                                        <a onclick="modalEdit(event)">
+                                            <span class="material-symbols-outlined">
+                                                assignment_add
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td class="cursor-pointer">
+                                        <a >
+                                            <span class="material-symbols-outlined">
+                                                send
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </section>
             </div>
-
         </main>
     </section>
 </body>

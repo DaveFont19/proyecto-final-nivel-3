@@ -1,3 +1,25 @@
+<?php
+ session_start();
+if($_SESSION["user-data"]["roles"] === "MAESTRO"){
+    try {
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "universidad_php";
+        $user_data = $_SESSION["user-data"];
+
+        $db = new mysqli($host, $username, $password, $database);
+        $stmnt = $db->query("SELECT * FROM usuarios_universidad WHERE email = '$user_data[email]'");
+        $usuario = $stmnt->fetch_assoc();
+    } catch (mysqli_sql_exception $e) {
+        echo "ERROR: " . $e->getMessage();
+    }
+
+} else {
+    header("location: /handle_db/logout.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +42,7 @@
         </a>
         <div class="flex flex-col p-4 border-b-2 border-[#42474d]">
             <span class=" text-[#c2c5cd]">Maestro</span>
-            <span class=" text-[#c2c5cd]">maestro maestro</span>
+            <span class=" text-[#c2c5cd]"><?= $usuario["nombre_usuario"] ?></span>
         </div>
         <div class="flex flex-col gap-6 p-4">
             <span class="text-[#c2c5cd] px-6">MENÚ MAESTROS
@@ -44,11 +66,11 @@
             </div>
 
             <div class="relative flex p-4">
-                <span class="cursor-pointer" onclick="toggleDropdown()">David Fontes</span>
+                <span class="cursor-pointer" onclick="toggleDropdown()"><?= $usuario["nombre_usuario"] ?></span>
                 <div id="myDropdown" class="dropdown-content">
                     <lu class="flex flex-col ">
-                        <a href="/views/maestro/maestro_edit.php">Perfil</a>
-                        <a href="#">Logout</a>
+                    <a href="/views/maestro/maestro_edit.php">Perfil</a>
+                        <a href="/handle_db/logout.php">Logout</a>
                     </lu>
                 </div>
             </div>
@@ -72,30 +94,31 @@
                     <h2 class="text-xl pl-2 py-2 border-[1px] border-white border-b-[#c2c5cd] mb-4">Información de Usuario</h2>
                     <!-- Aqui comienza la tabla para editar la información  -->
 
-                    <form class=" flex flex-col " method="post" action="#">
+                    <form class=" flex flex-col " method="post" action="/handle_db/maestro_hanlde_db/editar_maestro.php">
+                        <input hidden name="id_usuario" value='<?= $usuario["id_usuario"] ?>'>
                         <div class="flex flex-col py-2  mx-3">
                             <label class="font-bold" for="">Correo Electronico</label>
-                            <input type="email" name="email_alumno" id="" class="ring-1 ring-black">
+                            <input type="email" name="email" class="ring-1 ring-black" value='<?= $usuario["email"] ?>'>
                         </div>
                         <div class="flex flex-col py-2  mx-3">
                             <label class="font-bold" for="">Contraseña ingresa para cambiar contraseña</label>
-                            <input type="password" name="contracena_alumno" id="" class="ring-1 ring-black">
+                            <input type="password" name="contracena" id="" class="ring-1 ring-black">
                         </div>
                         <div class="flex flex-col py-2  mx-3">
                             <label class="font-bold" for="">Nombre(s)</label>
-                            <input type="text" name="nomnre_alumno" id="" class="ring-1 ring-black">
+                            <input type="text" name="nombre_usuario" id="" class="ring-1 ring-black" value='<?= $usuario["nombre_usuario"] ?>' >
                         </div>
                         <div class="flex flex-col py-2  mx-3">
                             <label class="font-bold" for="">Apellio(s)</label>
-                            <input type="text" name="apellido_alumno" id="" class="ring-1 ring-black">
+                            <input type="text" name="apellido" id="" class="ring-1 ring-black" value='<?= $usuario["apellido"] ?>'>
                         </div>
                         <div class="flex flex-col py-2  mx-3">
                             <label class="font-bold" for="">Dirección</label>
-                            <input type="text" name="dirección_alumno" id="" class="ring-1 ring-black">
+                            <input type="text" name="direccion" id="" class="ring-1 ring-black" value='<?= $usuario["direccion"] ?>'>
                         </div>
                         <div class="flex flex-col py-2 mb-8  mx-3">
                             <label class="font-bold" for="">Fecha de Nacimiento</label>
-                            <input type="date" name="nacimiento_alumno" id="" class="ring-1 ring-black">
+                            <input type="date" name="fecha_nacimiento" id="" class="ring-1 ring-black" value='<?= $usuario["fecha_nacimiento"] ?>'>
                         </div>
                         <div class="bg-[#f7f7f7] ">
                             <button class="bg-blue-500 text-white py-1 px-2 rounded-md w-36 m-4" type="submit">Guardar Cambios</button>
