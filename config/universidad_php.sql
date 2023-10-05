@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2023 a las 23:41:54
+-- Tiempo de generación: 05-10-2023 a las 19:45:29
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -35,6 +35,21 @@ CREATE TABLE `materias_alumnos` (
   `mensaje_maestro` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `materias_alumnos`
+--
+
+INSERT INTO `materias_alumnos` (`id_materia_alumnos`, `id_maestros_materia`, `matricula_alumnos`, `calificaciones`, `mensaje_maestro`) VALUES
+(12, 28, 3, 98, 'Buen trabajo'),
+(14, 17, 3, 90, NULL),
+(15, 20, 3, 78, NULL),
+(16, 22, 12, 100, NULL),
+(17, 18, 14, NULL, NULL),
+(18, 22, 14, NULL, 'Vas mejorando Bob esponja'),
+(19, 22, 3, 78, NULL),
+(20, 28, 3, 80, NULL),
+(21, 35, 3, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -52,15 +67,21 @@ CREATE TABLE `materias_maestros` (
 --
 
 INSERT INTO `materias_maestros` (`id_materia_maestro`, `maestro_asignado`, `materia_id`) VALUES
-(1, 2, 1),
-(2, 5, 2),
-(3, 6, 2),
-(4, 7, 3),
-(5, 2, 5),
-(6, 8, 4),
-(7, 5, 5),
-(8, 6, 3),
-(9, 9, 7);
+(17, 8, 2),
+(18, 2, 2),
+(19, 5, 3),
+(20, 7, 4),
+(21, 7, 6),
+(22, 2, 5),
+(27, 18, 1),
+(28, 9, 1),
+(29, 9, 5),
+(30, 6, 7),
+(31, 17, 8),
+(32, 6, 6),
+(33, 17, 7),
+(34, 8, 8),
+(35, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -112,14 +133,22 @@ CREATE TABLE `usuarios_universidad` (
 
 INSERT INTO `usuarios_universidad` (`id_usuario`, `matricula`, `nombre_usuario`, `apellido`, `email`, `contracena`, `direccion`, `fecha_nacimiento`, `roles`, `estado`) VALUES
 (1, NULL, 'Harold', 'Carazas', 'admin@admin', '$2y$10$92Ri.AKm14idOwOpAeT7U.3pbxcC2XIR34y/QZZnWjaopCSTGwoc6', 'calle 1 col. La huerta, CP28973', '1997-09-19', 'ADMIN', 'ACTIVO'),
-(2, NULL, 'Lily', 'Jaimes', 'maestro@maestro', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'calle #5 col.Huentitan, CP30896', '2023-10-17', 'MAESTRO', 'ACTIVO'),
-(3, 56789, 'David', 'Fontes', 'alumno@alumno', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'Calle #6 col. Tabachines. CP28983', '1997-09-09', 'ALUMNO', 'ACTIVO'),
+(2, NULL, 'Maestro Isaias', 'Funval Nivel 1', 'maestro@maestro', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'calle #5 col.Huentitan, CP30896', '0000-00-00', 'MAESTRO', 'ACTIVO'),
+(3, 56789, 'Harvey', 'Dent', 'alumno@alumno', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'Calle Nahoas #6 col. Tabachines. CP28983', '1997-09-09', 'ALUMNO', 'ACTIVO'),
 (4, 98765, 'Alex', 'Mercado', 'alex@alex', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'Desconocido', '1994-09-23', 'ALUMNO', 'INACTIVO'),
 (5, NULL, 'Carlos', 'Olmos', 'olmos@olmos', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'Calle 4 av. Siempre Viva', '1970-04-21', 'MAESTRO', 'ACTIVO'),
-(6, NULL, 'Sergio', 'Garcia', 'sergio@sergio', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'Abajo de un puente', '1990-02-13', 'MAESTRO', 'ACTIVO'),
+(6, NULL, 'Amado', 'Garcia', 'sergio@sergio', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'Abajo de un puente', '1990-02-13', 'MAESTRO', 'ACTIVO'),
 (7, NULL, 'Hyrum', 'Smith', 'smith@smith', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'Utah st. Walk #88888', '1992-06-16', 'MAESTRO', 'INACTIVO'),
 (8, NULL, 'Roger', 'Huitron', 'roger@roger', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'Al otro lado del charco', '1980-05-06', 'MAESTRO', 'ACTIVO'),
-(9, NULL, 'xbox', 'playstation', 'control@control', NULL, 'av. Sony col. Microsoft', '2023-10-20', 'MAESTRO', NULL);
+(9, NULL, 'xbox', 'playstation', 'control@control', '$2y$10$Hj9lV2dra6yE2OuG8CaK2.An7VPvGnqJu686NOwkPUZi3dFKEsXJq', 'av. Sony col. Microsoft', '2023-10-20', 'MAESTRO', 'INACTIVO'),
+(10, 12345, 'Lilo', 'Stitch', 'lilo@lilo', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'Hawai av. Kahaho', '1967-07-12', 'ALUMNO', 'ACTIVO'),
+(11, 54321, 'papa', 'pitufo', 'pitufo@pitufo', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'en un champiñon', '1970-04-21', 'ALUMNO', 'ACTIVO'),
+(12, 53421, 'Santa', 'Claus', 'santa@santa', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'Polo Norte', '2023-10-17', 'ALUMNO', 'INACTIVO'),
+(13, 51234, 'Ranger', 'Rojo', 'gogo@powerranger', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'en alguna parte del mundo', '1990-02-13', 'ALUMNO', 'ACTIVO'),
+(14, 34521, 'Bob', 'Toronja', 'bob@esponja', '$2y$10$iy1mwt8TpLKzuN4Z3bUqCO0HVIB9I7GwI35/e/43/Xx.3OGzEmim6', 'en una piña debajo del mar', '1889-02-20', 'ALUMNO', 'ACTIVO'),
+(17, NULL, 'David Alonso', 'Luna', 'david@david', NULL, 'Hacienda tecualtita #2274', '2023-10-26', 'MAESTRO', 'INACTIVO'),
+(18, NULL, '', '', 'rayos@rayos', NULL, '', '0000-00-00', 'MAESTRO', 'ACTIVO'),
+(20, 2147483647, 'Hola', 'Mundo', 'hello@hello', NULL, 'desde la tierra', '2023-10-27', 'ALUMNO', 'INACTIVO');
 
 --
 -- Índices para tablas volcadas
@@ -158,16 +187,22 @@ ALTER TABLE `usuarios_universidad`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `materias_alumnos`
+--
+ALTER TABLE `materias_alumnos`
+  MODIFY `id_materia_alumnos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
 -- AUTO_INCREMENT de la tabla `materias_maestros`
 --
 ALTER TABLE `materias_maestros`
-  MODIFY `id_materia_maestro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_materia_maestro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_universidad`
 --
 ALTER TABLE `usuarios_universidad`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas

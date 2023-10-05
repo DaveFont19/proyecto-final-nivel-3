@@ -26,6 +26,7 @@ if ($_SESSION["user-data"]["roles"] === "ALUMNO") {
         WHERE ma.id_materia_alumnos IS NULL
         AND ma.matricula_alumnos = '$id_usuario'");
         $materias_no_inscritas = $stmnt2->fetch_all();
+        var_dump($materias_no_inscritas);
 
 
 
